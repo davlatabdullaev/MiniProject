@@ -6,6 +6,7 @@ import (
 	"test/pkg/jwt"
 	"test/pkg/logger"
 	"test/pkg/security"
+	"test/storage"
 )
 
 type authService struct {
@@ -21,7 +22,7 @@ func NewAuthService(storage storage.IStorage, log logger.ILogger) authService {
 }
 
 func (a authService) CustomerLogin(ctx context.Context, loginRequest models.CustomerLoginRequest) (models.CustomerLoginResponse, error) {
-	customer, err := a.storage.User().GetCustomerCredentialsByLogin(ctx, loginRequest.Login)
+	customer, err := a.storage.Customer().GetCustomerCredentialsByLogin(ctx, loginRequest.Login)
 	if err != nil {
 		a.log.Error("error while getting customer credentials by login", logger.Error(err))
 		return models.CustomerLoginResponse{}, err

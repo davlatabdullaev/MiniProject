@@ -4,6 +4,7 @@ import (
 	"context"
 	"test/config"
 	"test/pkg/logger"
+	"test/storage/postgres"
 )
 
 func main() {
