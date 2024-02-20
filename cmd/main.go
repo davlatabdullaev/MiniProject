@@ -14,8 +14,6 @@ func main() {
 
 	log := logger.New(cfg.ServiceName)
 
-	//---------------------------------------------------// newRedis := redis.New(cfg)
-
 	pgStore, err := postgres.New(context.Background(), cfg, log)
 	if err != nil {
 		log.Error("error while connecting to db", logger.Error(err))

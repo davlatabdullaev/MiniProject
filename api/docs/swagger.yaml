@@ -156,187 +156,6 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
-  /Customer/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: delete Customer
-      parameters:
-      - description: Customer_id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Response'
-      summary: Delete Customer
-      tags:
-      - customer
-    get:
-      consumes:
-      - application/json
-      description: get Customer by ID
-      parameters:
-      - description: Customer
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Customer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Response'
-      summary: Gets Customer
-      tags:
-      - customer
-    patch:
-      consumes:
-      - application/json
-      description: update Customer password
-      parameters:
-      - description: Customer_id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Customer
-        in: body
-        name: Customer
-        required: true
-        schema:
-          $ref: '#/definitions/models.UpdateCustomerPassword'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Response'
-      summary: Update Customer password
-      tags:
-      - customer
-    put:
-      consumes:
-      - application/json
-      description: update Customer
-      parameters:
-      - description: Customer_id
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Customer
-        in: body
-        name: Customer
-        required: true
-        schema:
-          $ref: '#/definitions/models.UpdateCustomer'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Customer'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Response'
-      summary: Update Customer
-      tags:
-      - customer
-  /Customers:
-    get:
-      consumes:
-      - application/json
-      description: get Customer list
-      parameters:
-      - description: page
-        in: query
-        name: page
-        type: string
-      - description: limit
-        in: query
-        name: limit
-        type: string
-      - description: search
-        in: query
-        name: search
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.CustomersResponse'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.Response'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.Response'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Response'
-      summary: Get Customer list
-      tags:
-      - customer
   /auth/customer/login:
     post:
       consumes:
@@ -580,6 +399,187 @@ paths:
           schema:
             $ref: '#/definitions/models.Response'
       summary: Creates a new customer
+      tags:
+      - customer
+  /customer/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete Customer
+      parameters:
+      - description: Customer_id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Delete Customer
+      tags:
+      - customer
+    get:
+      consumes:
+      - application/json
+      description: get Customer by ID
+      parameters:
+      - description: Customer
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Gets Customer
+      tags:
+      - customer
+    patch:
+      consumes:
+      - application/json
+      description: update Customer password
+      parameters:
+      - description: Customer_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Customer
+        in: body
+        name: Customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateCustomerPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Update Customer password
+      tags:
+      - customer
+    put:
+      consumes:
+      - application/json
+      description: update Customer
+      parameters:
+      - description: Customer_id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Customer
+        in: body
+        name: Customer
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateCustomer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Customer'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Update Customer
+      tags:
+      - customer
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: get Customer list
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CustomersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Get Customer list
       tags:
       - customer
   /product:

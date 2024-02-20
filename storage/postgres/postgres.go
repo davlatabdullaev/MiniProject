@@ -3,12 +3,9 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"strings"
 	"test/config"
 	"test/pkg/logger"
 	"test/storage"
-
-	"github.com/golang-migrate/migrate/v4"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
@@ -19,9 +16,9 @@ import (
 )
 
 type Store struct {
-	pool  *pgxpool.Pool
-	log   logger.ILogger
-	cfg   config.Config
+	pool *pgxpool.Pool
+	log  logger.ILogger
+	cfg  config.Config
 }
 
 func New(ctx context.Context, cfg config.Config, log logger.ILogger) (storage.IStorage, error) {
@@ -48,44 +45,44 @@ func New(ctx context.Context, cfg config.Config, log logger.ILogger) (storage.IS
 		return nil, err
 	}
 
-	//migration
-	m, err := migrate.New("file://migrations/postgres/", url)
-	if err != nil {
-		log.Error("error while migrating", logger.Error(err))
-		return nil, err
-	}
+	// //migration
+	// m, err := migrate.New("file://migrations/postgres/", url)
+	// if err != nil {
+	// 	log.Error("error while migrating", logger.Error(err))
+	// 	return nil, err
+	// }
 
-	log.Info("???? came")
+	// log.Info("???? came")
 
-	if err = m.Up(); err != nil {
-		log.Warning("migration up", logger.Error(err))
-		if !strings.Contains(err.Error(), "no change") {
-			fmt.Println("entered")
-			version, dirty, err := m.Version()
-			log.Info("version and dirty", logger.Any("version", version), logger.Any("dirty", dirty))
-			if err != nil {
-				log.Error("err in checking version and dirty", logger.Error(err))
-				return nil, err
-			}
+	// if err = m.Up(); err != nil {
+	// 	log.Warning("migration up", logger.Error(err))
+	// 	if !strings.Contains(err.Error(), "no change") {
+	// 		fmt.Println("entered")
+	// 		version, dirty, err := m.Version()
+	// 		log.Info("version and dirty", logger.Any("version", version), logger.Any("dirty", dirty))
+	// 		if err != nil {
+	// 			log.Error("err in checking version and dirty", logger.Error(err))
+	// 			return nil, err
+	// 		}
 
-			if dirty {
-				version--
-				if err = m.Force(int(version)); err != nil {
-					log.Error("ERR in making force", logger.Error(err))
-					return nil, err
-				}
-			}
-			log.Warning("WARNING in migrating", logger.Error(err))
-			return nil, err
-		}
-	}
+	// 		if dirty {
+	// 			version--
+	// 			if err = m.Force(int(version)); err != nil {
+	// 				log.Error("ERR in making force", logger.Error(err))
+	// 				return nil, err
+	// 			}
+	// 		}
+	// 		log.Warning("WARNING in migrating", logger.Error(err))
+	// 		return nil, err
+	// 	}
+	// }
 
-	log.Info("!!!!! came here")
+	// log.Info("!!!!! came here")
 
 	return Store{
-		pool:  pool,
-		log:   log,
-		cfg:   cfg,
+		pool: pool,
+		log:  log,
+		cfg:  cfg,
 	}, nil
 }
 

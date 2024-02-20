@@ -60,9 +60,9 @@ func ExtractClaims(tokenString string) (map[interface{}]interface{}, error) {
 		m["user_id"] = userID
 	}
 
-	userRole, ok := token.Claims.(jwt.MapClaims)["user_role"]
+	customerRole, ok := token.Claims.(jwt.MapClaims)["user_role"]
 	if ok {
-		m["user_role"] = userRole
+		m["customer_role"] = customerRole
 	}
 
 	return m, nil

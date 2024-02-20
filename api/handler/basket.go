@@ -92,11 +92,7 @@ func (h Handler) GetBasketList(c *gin.Context) {
 		return
 	}
 
-	if authInfo.UserRole != "customer" {
-		customerID = ""
-	} else {
-		customerID = authInfo.UserID
-	}
+	customerID = authInfo.UserID
 
 	pageStr := c.DefaultQuery("page", "1")
 	page, err = strconv.Atoi(pageStr)

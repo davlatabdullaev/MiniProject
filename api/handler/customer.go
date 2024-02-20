@@ -44,7 +44,7 @@ func (h Handler) CreateCustomer(c *gin.Context) {
 }
 
 // GetCustomer godoc
-// @Router       /Customer/{id} [GET]
+// @Router       /customer/{id} [GET]
 // @Summary      Gets Customer
 // @Description  get Customer by ID
 // @Tags         customer
@@ -80,7 +80,7 @@ func (h Handler) GetCustomer(c *gin.Context) {
 }
 
 // GetCustomerList godoc
-// @Router       /Customers [GET]
+// @Router       /customers [GET]
 // @Summary      Get Customer list
 // @Description  get Customer list
 // @Tags         customer
@@ -132,7 +132,7 @@ func (h Handler) GetCustomerList(c *gin.Context) {
 }
 
 // UpdateCustomer godoc
-// @Router       /Customer/{id} [PUT]
+// @Router       /customer/{id} [PUT]
 // @Summary      Update Customer
 // @Description  update Customer
 // @Tags         customer
@@ -172,7 +172,7 @@ func (h Handler) UpdateCustomer(c *gin.Context) {
 }
 
 // DeleteCustomer godoc
-// @Router       /Customer/{id} [DELETE]
+// @Router       /customer/{id} [DELETE]
 // @Summary      Delete Customer
 // @Description  delete Customer
 // @Tags         customer
@@ -204,7 +204,7 @@ func (h Handler) DeleteCustomer(c *gin.Context) {
 }
 
 // UpdateCustomerPassword godoc
-// @Router       /Customer/{id} [PATCH]
+// @Router       /customer/{id} [PATCH]
 // @Summary      Update Customer password
 // @Description  update Customer password
 // @Tags         customer

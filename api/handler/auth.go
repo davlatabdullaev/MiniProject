@@ -55,7 +55,6 @@ func getAuthInfo(c *gin.Context) (models.AuthInfo, error) {
 	}
 
 	return models.AuthInfo{
-		UserID:   m["user_id"].(string),
-		UserRole: m["user_role"].(string),
+		UserID:   m["customer_id"].(string),
 	}, nil
 }

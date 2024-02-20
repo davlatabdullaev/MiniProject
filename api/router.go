@@ -35,12 +35,12 @@ func New(services service.IServiceManager, log logger.ILogger) *gin.Engine {
 		r.POST("/auth/customer/login", h.CustomerLogin)
 
 		// user endpoints
-		r.POST("/user", h.CreateCustomer)
-		r.GET("/user/:id", h.GetCustomer)
-		r.GET("/users", h.GetCustomerList)
-		r.PUT("/user/:id", h.UpdateCustomer)
-		r.DELETE("/user/:id", h.DeleteCustomer)
-		r.PATCH("/user/:id", h.UpdateCustomerPassword)
+		r.POST("/customer", h.CreateCustomer)
+		r.GET("/customer/:id", h.GetCustomer)
+		r.GET("/customers", h.GetCustomerList)
+		r.PUT("/customer/:id", h.UpdateCustomer)
+		r.DELETE("/customer/:id", h.DeleteCustomer)
+		r.PATCH("/customer/:id", h.UpdateCustomerPassword)
 		// product endpoints
 		r.POST("/product", h.CreateProduct)
 		r.GET("/product/:id", h.GetProduct)
