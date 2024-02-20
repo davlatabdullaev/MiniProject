@@ -3,6 +3,7 @@ package handler
 import (
 	"test/api/models"
 	"test/pkg/logger"
+	"test/service"
 
 	"github.com/gin-gonic/gin"
 )
