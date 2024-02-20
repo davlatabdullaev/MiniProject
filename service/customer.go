@@ -52,7 +52,7 @@ func (c customerService) Create(ctx context.Context, createUser models.CreateCus
 	return customer, nil
 }
 
-func (c customerService) GetUser(ctx context.Context, pKey models.PrimaryKey) (models.Customer, error) {
+func (c customerService) GetCustomer(ctx context.Context, pKey models.PrimaryKey) (models.Customer, error) {
 	user, err := c.storage.Customer().GetByID(ctx, pKey)
 	if err != nil {
 		if !errors.Is(err, pgx.ErrNoRows) {
@@ -64,7 +64,7 @@ func (c customerService) GetUser(ctx context.Context, pKey models.PrimaryKey) (m
 	return user, nil
 }
 
-func (c customerService) GetUsers(ctx context.Context, request models.GetListRequest) (models.CustomersResponse, error) {
+func (c customerService) GetCustomersList(ctx context.Context, request models.GetListRequest) (models.CustomersResponse, error) {
 	c.log.Info("Get user list service layer", logger.Any("request", request))
 	usersResponse, err := c.storage.Customer().GetList(ctx, request)
 	if err != nil {

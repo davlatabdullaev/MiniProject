@@ -12,6 +12,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	swaggerFiles "github.com/swaggo/files"
 )
 
 // New ...
@@ -34,12 +35,12 @@ func New(services service.IServiceManager, log logger.ILogger) *gin.Engine {
 		r.POST("/auth/customer/login", h.CustomerLogin)
 
 		// user endpoints
-		r.POST("/user", h.CreateUser)
-		r.GET("/user/:id", h.GetUser)
-		r.GET("/users", h.GetUserList)
-		r.PUT("/user/:id", h.UpdateUser)
-		r.DELETE("/user/:id", h.DeleteUser)
-		r.PATCH("/user/:id", h.UpdateUserPassword)
+		r.POST("/user", h.CreateCustomer)
+		r.GET("/user/:id", h.GetCustomer)
+		r.GET("/users", h.GetCustomerList)
+		r.PUT("/user/:id", h.UpdateCustomer)
+		r.DELETE("/user/:id", h.DeleteCustomer)
+		r.PATCH("/user/:id", h.UpdateCustomerPassword)
 		// product endpoints
 		r.POST("/product", h.CreateProduct)
 		r.GET("/product/:id", h.GetProduct)

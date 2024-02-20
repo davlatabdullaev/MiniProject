@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"test/api"
 	"test/config"
 	"test/pkg/logger"
 	"test/service"

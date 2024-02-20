@@ -12,50 +12,50 @@ import (
 	"github.com/google/uuid"
 )
 
-// CreateUser godoc
-// @Router       /user [POST]
-// @Summary      Creates a new user
-// @Description  create a new user
-// @Tags         user
+// CreateCustomer godoc
+// @Router       /customer [POST]
+// @Summary      Creates a new customer
+// @Description  create a new customer
+// @Tags         customer
 // @Accept       json
 // @Produce      json
-// @Param        user body models.CreateUser false "user"
-// @Success      201  {object}  models.User
+// @Param        customer body models.CreateCustomer false "customer"
+// @Success      201  {object}  models.Customer
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) CreateUser(c *gin.Context) {
-	createUser := models.CreateCustomer{}
+func (h Handler) CreateCustomer(c *gin.Context) {
+	createCustomer := models.CreateCustomer{}
 
-	if err := c.ShouldBindJSON(&createUser); err != nil {
+	if err := c.ShouldBindJSON(&createCustomer); err != nil {
 		handleResponse(c, h.log, "error while reading body from client", http.StatusBadRequest, err)
 		return
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	resp, err := h.services.Customer().Create(ctx, createUser)
+	resp, err := h.services.Customer().Create(ctx, createCustomer)
 	if err != nil {
-		handleResponse(c, h.log, "error while creating user", http.StatusInternalServerError, err.Error())
+		handleResponse(c, h.log, "error while creating Customer", http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	handleResponse(c, h.log, "", http.StatusCreated, resp)
 }
 
-// GetUser godoc
-// @Router       /user/{id} [GET]
-// @Summary      Gets user
-// @Description  get user by ID
-// @Tags         user
+// GetCustomer godoc
+// @Router       /Customer/{id} [GET]
+// @Summary      Gets Customer
+// @Description  get Customer by ID
+// @Tags         customer
 // @Accept       json
 // @Produce      json
-// @Param        id path string true "user"
-// @Success      200  {object}  models.User
+// @Param        id path string true "Customer"
+// @Success      200  {object}  models.Customer
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) GetUser(c *gin.Context) {
+func (h Handler) GetCustomer(c *gin.Context) {
 	var err error
 
 	uid := c.Param("id")
@@ -68,32 +68,32 @@ func (h Handler) GetUser(c *gin.Context) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	user, err := h.services.Customer().GetUser(ctx, models.PrimaryKey{
+	Customer, err := h.services.Customer().GetCustomer(ctx, models.PrimaryKey{
 		ID: id.String(),
 	})
 	if err != nil {
-		handleResponse(c, h.log, "error while getting user by id", http.StatusInternalServerError, err)
+		handleResponse(c, h.log, "error while getting Customer by id", http.StatusInternalServerError, err)
 		return
 	}
 
-	handleResponse(c, h.log, "", http.StatusOK, user)
+	handleResponse(c, h.log, "", http.StatusOK, Customer)
 }
 
-// GetUserList godoc
-// @Router       /users [GET]
-// @Summary      Get user list
-// @Description  get user list
-// @Tags         user
+// GetCustomerList godoc
+// @Router       /Customers [GET]
+// @Summary      Get Customer list
+// @Description  get Customer list
+// @Tags         customer
 // @Accept       json
 // @Produce      json
 // @Param        page query string false "page"
 // @Param 		 limit query string false "limit"
 // @Param 		 search query string false "search"
-// @Success      200  {object}  models.UsersResponse
+// @Success      200  {object}  models.CustomersResponse
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) GetUserList(c *gin.Context) {
+func (h Handler) GetCustomerList(c *gin.Context) {
 	var (
 		page, limit int
 		search      string
@@ -118,34 +118,34 @@ func (h Handler) GetUserList(c *gin.Context) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	resp, err := h.services.Customer().GetUsers(ctx, models.GetListRequest{
+	resp, err := h.services.Customer().GetCustomersList(ctx, models.GetListRequest{
 		Page:   page,
 		Limit:  limit,
 		Search: search,
 	})
 	if err != nil {
-		handleResponse(c, h.log, "error while getting users", http.StatusInternalServerError, err)
+		handleResponse(c, h.log, "error while getting Customers", http.StatusInternalServerError, err)
 		return
 	}
 
 	handleResponse(c, h.log, "success!", http.StatusOK, resp)
 }
 
-// UpdateUser godoc
-// @Router       /user/{id} [PUT]
-// @Summary      Update user
-// @Description  update user
-// @Tags         user
+// UpdateCustomer godoc
+// @Router       /Customer/{id} [PUT]
+// @Summary      Update Customer
+// @Description  update Customer
+// @Tags         customer
 // @Accept       json
 // @Produce      json
-// @Param 		 id path string true "user_id"
-// @Param        user body models.UpdateUser true "user"
-// @Success      200  {object}  models.User
+// @Param 		 id path string true "Customer_id"
+// @Param        Customer body models.UpdateCustomer true "Customer"
+// @Success      200  {object}  models.Customer
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) UpdateUser(c *gin.Context) {
-	updateUser := models.UpdateCustomer{}
+func (h Handler) UpdateCustomer(c *gin.Context) {
+	updateCustomer := models.UpdateCustomer{}
 
 	uid := c.Param("id")
 	if uid == "" {
@@ -153,37 +153,37 @@ func (h Handler) UpdateUser(c *gin.Context) {
 		return
 	}
 
-	updateUser.ID = uid
+	updateCustomer.ID = uid
 
-	if err := c.ShouldBindJSON(&updateUser); err != nil {
+	if err := c.ShouldBindJSON(&updateCustomer); err != nil {
 		handleResponse(c, h.log, "error while reading body", http.StatusBadRequest, err.Error())
 		return
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	resp, err := h.services.Customer().Update(ctx, updateUser)
+	resp, err := h.services.Customer().Update(ctx, updateCustomer)
 	if err != nil {
-		handleResponse(c, h.log, "error while updating user", http.StatusInternalServerError, err.Error())
+		handleResponse(c, h.log, "error while updating Customer", http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	handleResponse(c, h.log, "", http.StatusOK, resp)
 }
 
-// DeleteUser godoc
-// @Router       /user/{id} [DELETE]
-// @Summary      Delete user
-// @Description  delete user
-// @Tags         user
+// DeleteCustomer godoc
+// @Router       /Customer/{id} [DELETE]
+// @Summary      Delete Customer
+// @Description  delete Customer
+// @Tags         customer
 // @Accept       json
 // @Produce      json
-// @Param 		 id path string true "user_id"
+// @Param 		 id path string true "Customer_id"
 // @Success      200  {object}  models.Response
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) DeleteUser(c *gin.Context) {
+func (h Handler) DeleteCustomer(c *gin.Context) {
 	uid := c.Param("id")
 	id, err := uuid.Parse(uid)
 	if err != nil {
@@ -196,30 +196,30 @@ func (h Handler) DeleteUser(c *gin.Context) {
 	if err = h.services.Customer().Delete(ctx, models.PrimaryKey{
 		ID: id.String(),
 	}); err != nil {
-		handleResponse(c, h.log, "error while deleting user by id", http.StatusInternalServerError, err.Error())
+		handleResponse(c, h.log, "error while deleting Customer by id", http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	handleResponse(c, h.log, "", http.StatusOK, "data successfully deleted")
 }
 
-// UpdateUserPassword godoc
-// @Router       /user/{id} [PATCH]
-// @Summary      Update user password
-// @Description  update user password
-// @Tags         user
+// UpdateCustomerPassword godoc
+// @Router       /Customer/{id} [PATCH]
+// @Summary      Update Customer password
+// @Description  update Customer password
+// @Tags         customer
 // @Accept       json
 // @Produce      json
-// @Param 		 id path string true "user_id"
-// @Param        user body models.UpdateUserPassword true "user"
+// @Param 		 id path string true "Customer_id"
+// @Param        Customer body models.UpdateCustomerPassword true "Customer"
 // @Success      200  {object}  models.Response
 // @Failure      400  {object}  models.Response
 // @Failure      404  {object}  models.Response
 // @Failure      500  {object}  models.Response
-func (h Handler) UpdateUserPassword(c *gin.Context) {
-	updateUserPassword := models.UpdateCustomerPassword{}
+func (h Handler) UpdateCustomerPassword(c *gin.Context) {
+	updateCustomerPassword := models.UpdateCustomerPassword{}
 
-	if err := c.ShouldBindJSON(&updateUserPassword); err != nil {
+	if err := c.ShouldBindJSON(&updateCustomerPassword); err != nil {
 		handleResponse(c, h.log, "error while reading body", http.StatusBadRequest, err.Error())
 		return
 	}
@@ -230,12 +230,12 @@ func (h Handler) UpdateUserPassword(c *gin.Context) {
 		return
 	}
 
-	updateUserPassword.ID = uid.String()
+	updateCustomerPassword.ID = uid.String()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
-	if err = h.services.Customer().UpdatePassword(ctx, updateUserPassword); err != nil {
-		handleResponse(c, h.log, "error while updating user password", http.StatusInternalServerError, err.Error())
+	if err = h.services.Customer().UpdatePassword(ctx, updateCustomerPassword); err != nil {
+		handleResponse(c, h.log, "error while updating Customer password", http.StatusInternalServerError, err.Error())
 		return
 	}
 
