@@ -2,8 +2,7 @@ package main
 
 import (
 	"context"
-
-	"honnef.co/go/tools/config"
+	"test/config"
 )
 
 func main() {
@@ -11,7 +10,7 @@ func main() {
 
 	log := logger.New(cfg.ServiceName)
 
-	newRedis := redis.New(cfg)
+	// newRedis := redis.New(cfg)
 
 	pgStore, err := postgres.New(context.Background(), cfg, log, newRedis)
 	if err != nil {
