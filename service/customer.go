@@ -44,6 +44,10 @@ func (c customerService) Create(ctx context.Context, createUser models.CreateCus
 	customer, err := c.storage.Customer().GetByID(ctx, models.PrimaryKey{
 		ID: pKey,
 	})
+	if err != nil {
+		c.log.Error("error while get basket by id", logger.Error(err))
+		return models.Customer{}, err
+	}
 
 	return customer, nil
 }
