@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"test/config"
+	"test/pkg/logger"
 )
 
 func main() {

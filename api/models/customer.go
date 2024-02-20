@@ -27,3 +27,9 @@ type CustomersResponse struct {
 	Customers []Customer `json:"customers"`
 	Count     int        `json:"count"`
 }
+
+type UpdateCustomerPassword struct {
+	ID          string `json:"-"`
+	NewPassword string `json:"new_password"`
+	OldPassword string `json:"old_password"`
+}
