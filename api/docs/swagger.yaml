@@ -9,8 +9,6 @@ definitions:
         type: integer
       id:
         type: string
-      product_id:
-        type: string
       quantity:
         type: integer
       total_sum:
@@ -30,8 +28,6 @@ definitions:
   models.CreateBasket:
     properties:
       customer_id:
-        type: string
-      product_id:
         type: string
       quantity:
         type: integer
@@ -117,8 +113,6 @@ definitions:
   models.UpdateBasket:
     properties:
       customer_id:
-        type: string
-      product_id:
         type: string
       quantity:
         type: integer
@@ -757,9 +751,4 @@ paths:
       summary: Get product list
       tags:
       - product
-securityDefinitions:
-  ApiKeyAuth:
-    in: header
-    name: Authorization
-    type: apiKey
 swagger: "2.0"

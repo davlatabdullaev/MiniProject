@@ -12,5 +12,5 @@ type CustomerLoginResponse struct {
 }
 
 type AuthInfo struct {
-	UserID   string `json:"customer_id"`
+	CustomerID   string `json:"customer_id"`
 }

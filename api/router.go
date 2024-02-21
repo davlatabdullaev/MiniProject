@@ -11,17 +11,14 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // New ...
 // @title           Swagger Example API
 // @version         1.0
 // @description     This is a sample server celler server.
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name Authorization
 func New(services service.IServiceManager, log logger.ILogger) *gin.Engine {
 	h := handler.New(services, log)
 
@@ -56,6 +53,10 @@ func New(services service.IServiceManager, log logger.ILogger) *gin.Engine {
 		r.DELETE("basket/:id", h.DeleteBasket)
 
 		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+		r.Use(traceRequest)
+		r.Use(authenticateMiddleware)
+
 	}
 
 	return r

@@ -946,9 +946,6 @@ const docTemplate = `{
                 "id": {
                     "type": "string"
                 },
-                "product_id": {
-                    "type": "string"
-                },
                 "quantity": {
                     "type": "integer"
                 },
@@ -978,9 +975,6 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "customer_id": {
-                    "type": "string"
-                },
-                "product_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -1114,9 +1108,6 @@ const docTemplate = `{
                 "customer_id": {
                     "type": "string"
                 },
-                "product_id": {
-                    "type": "string"
-                },
                 "quantity": {
                     "type": "integer"
                 },
@@ -1163,13 +1154,6 @@ const docTemplate = `{
                     "type": "integer"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }`

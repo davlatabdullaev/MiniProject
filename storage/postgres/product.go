@@ -27,8 +27,8 @@ func NewProductRepo(db *pgxpool.Pool, log logger.ILogger) storage.IProductStorag
 
 func (p *productRepo) Create(ctx context.Context, product models.CreateProduct) (string, error) {
 	id := uuid.New()
-	query := `insert into products(id, name, price, original_price, quantity, category_id, branch_id) 
-						values($1, $2, $3, $4, $5, $6, $7)`
+	query := `insert into products(id, name, price, quantity) 
+						values($1, $2, $3, $4)`
 
 	if rowsAffected, err := p.db.Exec(ctx, query,
 		id,
@@ -50,7 +50,7 @@ func (p *productRepo) Create(ctx context.Context, product models.CreateProduct) 
 func (p *productRepo) GetByID(ctx context.Context, key models.PrimaryKey) (models.Product, error) {
 	var createdAt, updatedAt = sql.NullString{}, sql.NullString{}
 	product := models.Product{}
-	query := `select id, name, price, original_price, quantity, category_id, branch_id, created_at, updated_at
+	query := `select id, name, price, quantity, created_at, updated_at
 							from products where id = $1 and deleted_at = 0`
 	if err := p.db.QueryRow(ctx, query, key.ID).Scan(
 		&product.ID,
@@ -96,7 +96,7 @@ func (p *productRepo) GetList(ctx context.Context, request models.GetListRequest
 		return models.ProductsResponse{}, err
 	}
 
-	query = `select id, name, price, original_price, quantity, category_id, branch_id, created_at, updated_at
+	query = `select id, name, price,  quantity, created_at, updated_at
 								from products where deleted_at = 0`
 
 	if search != "" {
@@ -140,8 +140,8 @@ func (p *productRepo) GetList(ctx context.Context, request models.GetListRequest
 }
 
 func (p *productRepo) Update(ctx context.Context, product models.UpdateProduct) (string, error) {
-	query := `update products set name = $1, price = $2, original_price = $3, quantity = $4, 
-                    category_id = $5, updated_at = now()  where id = $6`
+	query := `update products set name = $1, price = $2, quantity = $3, 
+                    updated_at = now()  where id = $4`
 
 	if _, err := p.db.Exec(ctx, query,
 		&product.Name,

@@ -29,7 +29,7 @@ func (c *customerRepo) Create(ctx context.Context, createUser models.CreateCusto
 	uid := uuid.New()
 
 	if _, err := c.db.Exec(ctx, `insert into 
-			users values ($1, $2, $3, $4, $5, $6, $7)
+			customers values ($1, $2, $3, $4)
 			`,
 		uid,
 		createUser.FullName,
@@ -48,8 +48,8 @@ func (c *customerRepo) GetByID(ctx context.Context, pKey models.PrimaryKey) (mod
 	user := models.Customer{}
 
 	query := `
-		select id, full_name, phone, cash, branch_id, created_at, updated_at 
-						from users where id = $1 and deleted_at = 0 and user_role = 'customer'
+		select id, full_name, phone, created_at, updated_at 
+						from customers where id = $1 and deleted_at = 0 
 `
 	if err := c.db.QueryRow(ctx, query, pKey.ID).Scan(
 		&user.ID,
@@ -85,7 +85,7 @@ func (c *customerRepo) GetList(ctx context.Context, request models.GetListReques
 	)
 
 	countQuery = `
-		SELECT count(1) from users where user_role = 'customer' and deleted_at = 0 `
+		SELECT count(1) from customers where deleted_at = 0 `
 
 	if search != "" {
 		countQuery += fmt.Sprintf(` and (phone ilike '%s' or full_name ilike '%s')`, search, search)
@@ -97,9 +97,9 @@ func (c *customerRepo) GetList(ctx context.Context, request models.GetListReques
 	}
 
 	query = `
-		SELECT id, full_name, phone, cash, branch_id, created_at, updated_at
-			FROM users
-			    WHERE user_role = 'customer' and deleted_at = 0
+		SELECT id, full_name, phone, created_at, updated_at
+			FROM customers
+			    WHERE deleted_at = 0
 			    `
 
 	if search != "" {
@@ -145,9 +145,9 @@ func (c *customerRepo) GetList(ctx context.Context, request models.GetListReques
 
 func (c *customerRepo) Update(ctx context.Context, request models.UpdateCustomer) (string, error) {
 	query := `
-		update users 
-			set full_name = $1, phone = $2, cash = $3, updated_at = now()
-				where user_role = 'customer' and id = $4`
+		update customers 
+			set full_name = $1, phone = $2, updated_at = now()
+				where id = $4`
 
 	if _, err := c.db.Exec(ctx, query, request.FullName, request.Phone, request.ID); err != nil {
 		fmt.Println("error while updating user data", err.Error())
@@ -158,10 +158,10 @@ func (c *customerRepo) Update(ctx context.Context, request models.UpdateCustomer
 }
 
 func (c *customerRepo) Delete(ctx context.Context, request models.PrimaryKey) error {
-	query := `update users set deleted_at = extract(epoch from current_timestamp) where id = $1`
+	query := `update customers set deleted_at = extract(epoch from current_timestamp) where id = $1`
 
 	if _, err := c.db.Exec(ctx, query, request.ID); err != nil {
-		fmt.Println("error while deleting user by id", err.Error())
+		fmt.Println("error while deleting customer by id", err.Error())
 		return err
 	}
 
@@ -172,11 +172,11 @@ func (c *customerRepo) GetPassword(ctx context.Context, id string) (string, erro
 	password := ""
 
 	query := `
-		select password from users 
-		                where user_role = 'customer' and id = $1`
+		select password from customers 
+		                where id = $1`
 
 	if err := c.db.QueryRow(ctx, query, id).Scan(&password); err != nil {
-		fmt.Println("Error while scanning password from users", err.Error())
+		fmt.Println("Error while scanning password from customers", err.Error())
 		return "", err
 	}
 
@@ -185,9 +185,9 @@ func (c *customerRepo) GetPassword(ctx context.Context, id string) (string, erro
 
 func (c *customerRepo) UpdatePassword(ctx context.Context, request models.UpdateCustomerPassword) error {
 	query := `
-		update users 
+		update customers 
 				set password = $1, updated_at = now()
-					where id = $2 and user_role = 'customer'`
+					where id = $2 `
 
 	if _, err := c.db.Exec(ctx, query, request.NewPassword, request.ID); err != nil {
 		fmt.Println("error while updating password for user", err.Error())
@@ -201,11 +201,11 @@ func (c *customerRepo) GetCustomerCredentialsByLogin(ctx context.Context, login 
 	user := models.Customer{}
 
 	query := `
-		select id, password from users 
-		                where user_role = 'customer' and login = $1`
+		select id, password from customers 
+		                where login = $1`
 
 	if err := c.db.QueryRow(ctx, query, login).Scan(&user.ID, &user.Password); err != nil {
-		fmt.Println("Error while scanning password from users", err.Error())
+		fmt.Println("Error while scanning password from customers", err.Error())
 		return models.Customer{}, err
 	}
 

@@ -938,9 +938,6 @@
                 "id": {
                     "type": "string"
                 },
-                "product_id": {
-                    "type": "string"
-                },
                 "quantity": {
                     "type": "integer"
                 },
@@ -970,9 +967,6 @@
             "type": "object",
             "properties": {
                 "customer_id": {
-                    "type": "string"
-                },
-                "product_id": {
                     "type": "string"
                 },
                 "quantity": {
@@ -1106,9 +1100,6 @@
                 "customer_id": {
                     "type": "string"
                 },
-                "product_id": {
-                    "type": "string"
-                },
                 "quantity": {
                     "type": "integer"
                 },
@@ -1155,13 +1146,6 @@
                     "type": "integer"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
         }
     }
 }

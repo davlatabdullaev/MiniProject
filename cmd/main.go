@@ -7,6 +7,7 @@ import (
 	"test/pkg/logger"
 	"test/service"
 	"test/storage/postgres"
+	_"test/api/docs"
 )
 
 func main() {
